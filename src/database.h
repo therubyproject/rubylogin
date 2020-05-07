@@ -23,46 +23,46 @@
 #include "types.h"
 
 struct Character {
-	uint16_t worldId;
-	std::string name;
+    uint16_t worldId;
+    std::string name;
 };
 
 struct Account {
-	uint16_t id = 0;
-	std::string name;
-	std::string password;
-	uint64_t premiumEnd;
-	std::vector<Character> characters;
+    uint16_t id = 0;
+    std::string name;
+    std::string password;
+    uint64_t premiumEnd;
+    std::vector<Character> characters;
 };
 
 class Database
 {
-	public:
-		Database() = default;
-		~Database();
+    public:
+        Database() = default;
+        ~Database();
 
-		// non-copyable
-		Database(const Database&) = delete;
-		Database& operator=(const Database&) = delete;
+        // non-copyable
+        Database(const Database&) = delete;
+        Database& operator=(const Database&) = delete;
 
-		void connect();
-		void disconnect();
-		DBResultSharedPtr storeQuery(const std::string& query);
+        void connect();
+        void disconnect();
+        DBResultSharedPtr storeQuery(const std::string& query);
 
-		std::string getVersion() const {
-			return mysql_get_client_info();
-		}
+        std::string getVersion() const {
+            return mysql_get_client_info();
+        }
 
-		std::string escapeString(const std::string& string) const;
+        std::string escapeString(const std::string& string) const;
 
-		Account getAccount(const std::string& name, const std::string& password);
-	
-	private:
-		DBResultSharedPtr getAccountInfo(const std::string& name, const std::string& password);
-		std::vector<Character> getCharacterList(uint16_t accountId);
+        Account getAccount(const std::string& name, const std::string& password);
+    
+    private:
+        DBResultSharedPtr getAccountInfo(const std::string& name, const std::string& password);
+        std::vector<Character> getCharacterList(uint16_t accountId);
 
-		MYSQL* handle = nullptr;
-		std::recursive_mutex databaseLock;
+        MYSQL* handle = nullptr;
+        std::recursive_mutex databaseLock;
 };
 
 extern Database g_database;

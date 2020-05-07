@@ -20,13 +20,13 @@
 #define DB_RESULT
 
 class DBResult {
-	public:
-		explicit DBResult(MYSQL_RES* res);
-		~DBResult() = default;
+    public:
+        explicit DBResult(MYSQL_RES* res);
+        ~DBResult() = default;
 
-		// non-copyable
-		DBResult(const DBResult&) = delete;
-		DBResult& operator=(const DBResult&) = delete;
+        // non-copyable
+        DBResult(const DBResult&) = delete;
+        DBResult& operator=(const DBResult&) = delete;
 
         void next() {
             index++;

@@ -25,16 +25,16 @@ DBResult::DBResult(MYSQL_RES* res)
     size_t i = 0;
 
     auto field = mysql_fetch_field(res);
-	while (field) {
-		fields[field->name] = i++;
-		field = mysql_fetch_field(res);
-	}
+    while (field) {
+        fields[field->name] = i++;
+        field = mysql_fetch_field(res);
+    }
 
     auto row = mysql_fetch_row(res);
-	while (row) {
+    while (row) {
         rows.push_back(row);
-		row = mysql_fetch_row(res);
-	}
+        row = mysql_fetch_row(res);
+    }
 }
 
 std::string DBResult::getString(const std::string& field)
@@ -44,10 +44,10 @@ std::string DBResult::getString(const std::string& field)
     }
 
     auto it = fields.find(field);
-	if (it == fields.end()) {
+    if (it == fields.end()) {
         // field name doesnt exist
-		return "";
-	}
+        return "";
+    }
 
     auto row = rows[index];
     if (row[it->second] == nullptr) {

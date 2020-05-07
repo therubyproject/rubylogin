@@ -26,9 +26,9 @@ class RSA
     public:
         RSA() = default;
 
-		// non-copyable
-		RSA(const RSA&) = delete;
-		RSA& operator=(const RSA&) = delete;
+        // non-copyable
+        RSA(const RSA&) = delete;
+        RSA& operator=(const RSA&) = delete;
 
         void loadPEM();
         bool decrypt(NetworkMessage& msg);

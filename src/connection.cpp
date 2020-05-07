@@ -112,19 +112,19 @@ void Connection::parsePacket(const boost::system::error_code& error)
     }
 
     //Check packet checksum
-	uint32_t checksum;
-	int32_t len = msg.getLength() - msg.getBufferPosition() - NetworkMessage::CHECKSUM_LENGTH;
-	if (len > 0) {
-		checksum = adlerChecksum(msg.getBuffer() + msg.getBufferPosition() + NetworkMessage::CHECKSUM_LENGTH, len);
-	} else {
-		checksum = 0;
-	}
+    uint32_t checksum;
+    int32_t len = msg.getLength() - msg.getBufferPosition() - NetworkMessage::CHECKSUM_LENGTH;
+    if (len > 0) {
+        checksum = adlerChecksum(msg.getBuffer() + msg.getBufferPosition() + NetworkMessage::CHECKSUM_LENGTH, len);
+    } else {
+        checksum = 0;
+    }
 
-	uint32_t recvChecksum = msg.get<uint32_t>();
-	if (recvChecksum != checksum) {
-		protocol->disconnectClient("Invalid Checksum.");
+    uint32_t recvChecksum = msg.get<uint32_t>();
+    if (recvChecksum != checksum) {
+        protocol->disconnectClient("Invalid Checksum.");
         return;
-	}
+    }
 
     msg.skipBytes(1); // Skip protocol ID
 

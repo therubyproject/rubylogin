@@ -28,8 +28,8 @@ Database g_database;
 Database::~Database()
 {
     if (handle) {
-		mysql_close(handle);
-	}
+        mysql_close(handle);
+    }
 }
 
 void Database::connect()
@@ -40,7 +40,7 @@ void Database::connect()
     }
 
     bool reconnect = true;
-	mysql_options(handle, MYSQL_OPT_RECONNECT, &reconnect);
+    mysql_options(handle, MYSQL_OPT_RECONNECT, &reconnect);
 
     bool result = mysql_real_connect(handle, 
                 g_config.getString(ConfigString::DatabaseIP).c_str(),
@@ -82,21 +82,21 @@ std::string Database::escapeString(const std::string& string) const
 {
     // the worst case is 2n + 1
     size_t length = string.length();
-	size_t maxLength = (length * 2) + 1;
+    size_t maxLength = (length * 2) + 1;
 
-	std::string escaped;
-	escaped.reserve(maxLength + 2);
-	escaped.push_back('\'');
+    std::string escaped;
+    escaped.reserve(maxLength + 2);
+    escaped.push_back('\'');
 
-	if (length != 0) {
-		char* output = new char[maxLength];
-		mysql_real_escape_string(handle, output, string.c_str(), length);
-		escaped.append(output);
-		delete[] output;
-	}
+    if (length != 0) {
+        char* output = new char[maxLength];
+        mysql_real_escape_string(handle, output, string.c_str(), length);
+        escaped.append(output);
+        delete[] output;
+    }
 
-	escaped.push_back('\'');
-	return escaped;
+    escaped.push_back('\'');
+    return escaped;
 }
 
 Account Database::getAccount(const std::string& name, const std::string& password)

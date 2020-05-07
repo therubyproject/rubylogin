@@ -62,11 +62,11 @@ int main(int argc, char* argv[]) {
 bool mainLoader() {
 
 #ifdef _WIN32
-	SetConsoleTitle(SERVER_NAME);
+    SetConsoleTitle(SERVER_NAME);
 #endif
-	g_logger.info("Starting " + std::string(SERVER_NAME) + " Version " + SERVER_VERSION);
-	g_logger.info("Compiled with " + std::string(BOOST_COMPILER));
-	g_logger.info("Compiled on " + std::string(__DATE__) + ' ' + __TIME__);
+    g_logger.info("Starting " + std::string(SERVER_NAME) + " Version " + SERVER_VERSION);
+    g_logger.info("Compiled with " + std::string(BOOST_COMPILER));
+    g_logger.info("Compiled on " + std::string(__DATE__) + ' ' + __TIME__);
 
 #if defined(__amd64__) || defined(_M_X64)
     g_logger.info("Platform x64");
